@@ -16,7 +16,7 @@ portainer.yangpenting.fun {
 
 # MinIO
 minio-api.yangpenting.fun {
-  reverse_proxy minio:7000
+  reverse_proxy minio-api:7000
 }
 
 minio.yangpenting.fun {
