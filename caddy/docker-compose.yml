@@ -6,21 +6,15 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    configs:
-      - source: caddy_config
-        target: /etc/caddy/Caddyfile
     volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
-      - caddy_config_data:/config
+      - caddy_config:/config
     deploy:
       replicas: 1
       restart_policy:
         condition: any
 
-configs:
-  caddy_config:
-    file: ./Caddyfile  # Must be in same directory as docker-stack.yml
-
 volumes:
   caddy_data:
-  caddy_config_data:
+  caddy_config:
