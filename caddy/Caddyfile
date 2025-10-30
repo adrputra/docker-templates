@@ -3,6 +3,12 @@
   redir https://{host}{uri}
 }
 
+# Root domain (homepage)
+yangpenting.fun {
+  root * /usr/share/caddy
+  file_server
+}
+
 # Portainer
 portainer.yangpenting.fun {
   reverse_proxy portainer:9000
@@ -11,9 +17,4 @@ portainer.yangpenting.fun {
 # MinIO
 minio.yangpenting.fun {
   reverse_proxy minio:9000
-}
-
-# Postgresql
-psql.yangpenting.fun {
-  reverse_proxy psql:5432
 }
