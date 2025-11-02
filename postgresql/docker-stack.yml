@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: digital_learning
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: Contabo8@adr
+    volumes:
+      # ✅ New directory structure for PostgreSQL 18+
+      - pg_data:/var/lib/postgresql
+    networks:
+      - main-dev
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.role == manager]
+    ports:
+      - "5432:5432"
+
+volumes:
+  pg_data:
+
+networks:
+  main-dev:
+    external: true
