@@ -22,3 +22,18 @@ minio-api.yangpenting.fun {
 minio.yangpenting.fun {
   reverse_proxy minio:9001
 }
+
+# Postgresql
+psql.yangpenting.fun {
+  reverse_proxy postgres:5432
+}
+
+# RabbitMQ Management UI
+mq.yangpenting.fun {
+  reverse_proxy rabbitmq:15672
+}
+
+# Jaeger UI
+jaeger.yangpenting.fun {
+  reverse_proxy jaeger:16686
+}
