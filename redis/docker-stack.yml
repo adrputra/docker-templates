@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  redis:
+    image: redis:7.4
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    networks:
+      - main-dev
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.role == manager]
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+      - PORT=6380
+    ports:
+      - "6380:6380"
+    networks:
+      - main-dev
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+      placement:
+        constraints: [node.role == manager]
+
+volumes:
+  redis_data:
+
+networks:
+  main-dev:
+    external: true

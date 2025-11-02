@@ -37,3 +37,12 @@ mq.yangpenting.fun {
 jaeger.yangpenting.fun {
   reverse_proxy jaeger:16686
 }
+
+# Redis
+redis.yangpenting.fun {
+  reverse_proxy redis:6379
+}
+
+redis-ui.yangpenting.fun {
+  reverse_proxy redis-commander:6380
+}
