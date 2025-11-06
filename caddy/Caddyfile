@@ -46,3 +46,8 @@ redis.yangpenting.fun {
 redis-ui.yangpenting.fun {
   reverse_proxy redis-commander:6380
 }
+
+# Digital Learning
+digilearn-api.yangpenting.fun {
+  reverse_proxy face-recognition-svc:8001
+}
