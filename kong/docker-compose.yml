@@ -12,6 +12,14 @@ x-kong-config: &kong-env
   KONG_PG_DATABASE: kong              # Name of the database to connect to
   KONG_PG_USER: admin                 # Database username (match your postgres setup)
   KONG_PG_PASSWORD: "Contabo8@adr"    # Database password
+  KONG_ADMIN_GUI_AUTH: basic-auth
+  KONG_ADMIN_GUI_SESSION_CONF: |
+    {
+      "secret":"super-secret-session-key",
+      "cookie_name":"kong_admin_session",
+      "cookie_secure":false,
+      "storage":"cookie"
+    }
 
 services:
 
