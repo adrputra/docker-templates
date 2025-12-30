@@ -60,3 +60,7 @@ digilearn-api.yangpenting.fun {
 digilearn.yangpenting.fun {
   reverse_proxy digital-learning-ui:3001
 }
+
+kong.yangpenting.fun {
+  reverse_proxy kong-bootstrap:8000
+}

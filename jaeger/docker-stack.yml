@@ -20,7 +20,7 @@ services:
     deploy:
       replicas: 1
       restart_policy:
-        condition: any
+        condition: on-failure
 
 networks:
   main-dev:

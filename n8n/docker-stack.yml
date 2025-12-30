@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   n8n:
-    image: n8nio/n8n:latest
+    image: n8n-custom:latest
     environment:
       - N8N_HOST=n8n.yangpenting.fun
       - N8N_PORT=5678
