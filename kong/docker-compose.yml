@@ -1,48 +1,26 @@
-volumes:
-  kong_db_data: {}  # Named volume to persist Postgres data across container restarts
-
 networks:
-  kong-ee-net:      # Custom bridge network for isolated Kong and Postgres communication
+  kong-ee-net:      # Custom bridge network for Kong services
     driver: bridge
+  main-dev:         # External network where postgres is running
+    external: true
 
 # Common environment variables used by Kong services (bootstrap and CP)
 x-kong-config: &kong-env
   KONG_DATABASE: postgres             # Use Postgres as the backing database
-  KONG_PG_HOST: kong-ee-database      # Hostname of the Postgres service
-  KONG_PG_DATABASE: kong              # Name of the database to connect to
-  KONG_PG_USER: kong                  # Database username
-  KONG_PG_PASSWORD: kong              # Database password
+  KONG_PG_HOST: postgres              # Connect to postgres service on main-dev network
+  KONG_PG_PORT: 5432                  # PostgreSQL port
+  KONG_PG_DATABASE: ${KONG_DB_NAME:-kong}  # Name of the database to connect to
+  KONG_PG_USER: ${KONG_DB_USER:-admin}      # Database username (match your postgres setup)
+  KONG_PG_PASSWORD: ${KONG_DB_PASSWORD}  # Database password (required)
 
 services:
-
-  kong-ee-database:
-    container_name: kong-ee-database
-    image: postgres:latest           # Official Postgres image
-    restart: on-failure              # Restart if the container fails
-    volumes:
-      - kong_db_data:/var/lib/postgresql  # Mount the volume for persistent data
-    networks:
-      - kong-ee-net                  # Connect to the shared Kong network
-    environment:
-      POSTGRES_USER: kong            # Set DB user inside the container
-      POSTGRES_DB: kong              # Create this database on first run
-      POSTGRES_PASSWORD: kong        # Set the password for the DB user
-    healthcheck:                     # Ensure the DB is ready before starting dependent services
-      test: ["CMD", "pg_isready", "-U", "kong"]
-      interval: 5s
-      timeout: 10s
-      retries: 10
-    ports:
-      - '5432:5432'                  # Optional: expose Postgres on localhost for debugging
 
   kong-bootstrap:
     image: '${GW_IMAGE:-kong/kong-gateway:3.13.0.0}'  # Kong Gateway image (default to latest version)
     container_name: kong-bootstrap
     networks:
       - kong-ee-net
-    depends_on:
-      kong-ee-database:
-        condition: service_healthy   # Wait until Postgres is up and healthy
+      - main-dev  # Connect to main-dev network to access postgres
     restart: on-failure
     environment:
       <<: *kong-env                 # Reuse environment config from x-kong-config
@@ -55,6 +33,7 @@ services:
     restart: on-failure
     networks:
       - kong-ee-net
+      - main-dev  # Connect to main-dev network to access postgres
     environment:
       <<: *kong-env
       KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl  # Admin API on HTTP + HTTPS
@@ -62,8 +41,7 @@ services:
       KONG_ADMIN_GUI_URL: http://${GW_HOST:-localhost}:8002  # URL for GUI links
       KONG_PASSWORD: handyshake  # Required for logging in to Kong Manager (RBAC)
     depends_on:
-      kong-bootstrap:
-        condition: service_completed_successfully  # Start only after bootstrap has succeeded
+      - kong-bootstrap  # Start only after bootstrap has completed
     ports:
       - "8000:8000"  # Proxy HTTP
       - "8443:8443"  # Proxy HTTPS
