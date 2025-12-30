@@ -40,6 +40,10 @@ services:
       KONG_ADMIN_GUI_LISTEN: 0.0.0.0:8002, 0.0.0.0:8445 ssl  # Kong Manager on HTTP + HTTPS
       KONG_ADMIN_GUI_URL: http://localhost:9604  # URL for GUI links
       KONG_PASSWORD: handyshake  # Required for logging in to Kong Manager (RBAC)
+      KONG_ENFORCE_RBAC: "on"
+      KONG_RBAC_AUTHORIZATION: "on"
+      KONG_ADMIN_GUI_AUTH: basic-auth
+
     depends_on:
       - kong-bootstrap  # Start only after bootstrap has completed
     ports:
