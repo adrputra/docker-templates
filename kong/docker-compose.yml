@@ -17,8 +17,9 @@ x-kong-config: &kong-env
   KONG_PG_PASSWORD: "Contabo8@adr"
   # OSS Admin Listener (no auth by default, access restricted by network)
   KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl
-  # Kong Manager OSS (limited features, no auth)
-  KONG_ADMIN_GUI_URL: http://localhost:9504
+  # Kong Manager OSS
+  KONG_ADMIN_GUI_URL: https://kong-manager.yangpenting.fun
+  KONG_ADMIN_GUI_API_URL: https://kong-admin.yangpenting.fun
   KONG_ADMIN_GUI_LISTEN: 0.0.0.0:8002, 0.0.0.0:8445 ssl
 
 services:
