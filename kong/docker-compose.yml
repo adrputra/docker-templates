@@ -38,8 +38,10 @@ services:
   kong:
     image: kong:3.4     # Explicit OSS tag
     networks:
-      - kong-net
-      - main-dev
+      kong-net:
+      main-dev:
+        aliases:
+          - kong
     deploy:
       replicas: 1
       restart_policy:
