@@ -30,10 +30,10 @@ services:
       - main-dev
     deploy:
       restart_policy:
-        condition: none
+        condition: on-failure
     environment:
       <<: *kong-env
-    command: kong migrations bootstrap
+    command: kong migrations up
 
   kong:
     image: kong:3.4     # Explicit OSS tag
