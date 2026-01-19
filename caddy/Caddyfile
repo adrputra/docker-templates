@@ -72,3 +72,11 @@ kong-admin.yangpenting.fun {
 kong-manager.yangpenting.fun {
   reverse_proxy kong:8002
 }
+
+kafka.yangpenting.fun {
+  reverse_proxy kafka:9092
+}
+
+kafka-ui.yangpenting.fun {
+  reverse_proxy kafka-ui:9080
+}
