@@ -78,5 +78,5 @@ kafka.yangpenting.fun {
 }
 
 kafka-ui.yangpenting.fun {
-  reverse_proxy kafka-ui:9080
+  reverse_proxy kafka-ui:8080
 }
