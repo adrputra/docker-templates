@@ -75,5 +75,25 @@ digilearn.yangpenting.fun {
 
 kong.yangpenting.fun {
   protocols h1 h2 h3
-  reverse_proxy kong-bootstrap:8000
+  reverse_proxy kong:8000
+}
+
+kong-admin.yangpenting.fun {
+  protocols h1 h2 h3
+  reverse_proxy kong:8001
+}
+
+kong-manager.yangpenting.fun {
+  protocols h1 h2 h3
+  reverse_proxy kong:8002
+}
+
+kafka.yangpenting.fun {
+  protocols h1 h2 h3
+  reverse_proxy kafka:9092
+}
+
+kafka-ui.yangpenting.fun {
+  protocols h1 h2 h3
+  reverse_proxy kafka-ui:8080
 }
