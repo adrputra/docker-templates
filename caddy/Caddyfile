@@ -1,3 +1,10 @@
+# Enable HTTP/3 (QUIC) globally
+{
+  servers :443 {
+    protocols h1 h2 h3
+  }
+}
+
 # Redirect all HTTP to HTTPS
 :80 {
   redir https://{host}{uri}
@@ -5,95 +12,78 @@
 
 # Root domain (homepage)
 yangpenting.fun {
-  protocols h1 h2 h3
   root * /usr/share/caddy
   file_server
 }
 
 # Portainer
 portainer.yangpenting.fun {
-  protocols h1 h2 h3
   reverse_proxy portainer:9000
 }
 
 # MinIO
 minio-api.yangpenting.fun {
-  protocols h1 h2 h3
   reverse_proxy minio:9000
 }
 
 minio.yangpenting.fun {
-  protocols h1 h2 h3
   reverse_proxy minio:9001
 }
 
 # Postgresql
 psql.yangpenting.fun {
-  protocols h1 h2 h3
   reverse_proxy postgres:5432
 }
 
 # RabbitMQ Management UI
 mq.yangpenting.fun {
-  protocols h1 h2 h3
   reverse_proxy rabbitmq:15672
 }
 
 # Jaeger UI
 jaeger.yangpenting.fun {
-  protocols h1 h2 h3
   reverse_proxy jaeger:16686
 }
 
 # Redis
 redis.yangpenting.fun {
-  protocols h1 h2 h3
   reverse_proxy redis:6379
 }
 
 redis-ui.yangpenting.fun {
-  protocols h1 h2 h3
   reverse_proxy redis-commander:6380
 }
 
 # N8N
 n8n.yangpenting.fun {
-  protocols h1 h2 h3
   reverse_proxy n8n:5678
 }
 
 # Digital Learning
 digilearn-api.yangpenting.fun {
-  protocols h1 h2 h3
   reverse_proxy face-recognition-svc:8001
 }
 
 digilearn.yangpenting.fun {
-  protocols h1 h2 h3
   reverse_proxy digital-learning-ui:3001
 }
 
 kong.yangpenting.fun {
-  protocols h1 h2 h3
   reverse_proxy kong:8000
 }
 
 kong-admin.yangpenting.fun {
-  protocols h1 h2 h3
   reverse_proxy kong:8001
 }
 
 kong-manager.yangpenting.fun {
-  protocols h1 h2 h3
   reverse_proxy kong:8002
 }
 
 kafka.yangpenting.fun {
-  protocols h1 h2 h3
   reverse_proxy kafka:9092
 }
 
 kafka-ui.yangpenting.fun {
-  protocols h1 h2 h3
   reverse_proxy kafka-ui:8080
 }
