@@ -61,7 +61,7 @@ n8n.yangpenting.fun {
 
 # Digital Learning
 digilearn-api.yangpenting.fun {
-  reverse_proxy face-recognition-svc:8001
+  reverse_proxy gateway-svc:8001
 }
 
 digilearn.yangpenting.fun {
