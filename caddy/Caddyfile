@@ -91,3 +91,7 @@ kafka-ui.yangpenting.fun {
 cadvisor.yangpenting.fun {
   reverse_proxy cadvisor:8080
 }
+
+monitor.yangpenting.fun {
+  reverse_proxy beszel:8090
+}

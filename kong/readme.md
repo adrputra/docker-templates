@@ -7,7 +7,7 @@ docker run --rm \
   -e KONG_PG_DATABASE=kong \
   -e KONG_PG_USER=admin \
   -e KONG_PG_PASSWORD='Contabo8@adr' \
-  kong:3.13 kong migrations up
+  kong/kong-gateway:3.13 kong migrations up
 
 docker run --rm \
   --network main-dev \
@@ -17,4 +17,6 @@ docker run --rm \
   -e KONG_PG_DATABASE=kong \
   -e KONG_PG_USER=admin \
   -e KONG_PG_PASSWORD='Contabo8@adr' \
-  kong:3.13 kong migrations finish
+  kong/kong-gateway:3.13 kong migrations finish
+
+docker stack deploy -c docker-compose.yml kong
