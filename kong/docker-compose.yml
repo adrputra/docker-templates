@@ -25,7 +25,7 @@ x-kong-config: &kong-env
 services:
 
   kong-migrations:
-    image: kong:3.4     # Explicit OSS tag
+    image: kong:3.13     # Explicit OSS tag
     networks:
       - kong-net
       - main-dev
@@ -37,7 +37,7 @@ services:
     command: kong migrations up
 
   kong:
-    image: kong:3.4     # Explicit OSS tag
+    image: kong:3.13     # Explicit OSS tag
     networks:
       kong-net:
       main-dev:
