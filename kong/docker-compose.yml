@@ -23,19 +23,6 @@ x-kong-config: &kong-env
   KONG_ADMIN_GUI_LISTEN: 0.0.0.0:8002, 0.0.0.0:8445 ssl
 
 services:
-
-  kong-migrations:
-    image: kong:3.13     # Explicit OSS tag
-    networks:
-      - kong-net
-      - main-dev
-    deploy:
-      restart_policy:
-        condition: on-failure
-    environment:
-      <<: *kong-env
-    command: kong migrations up
-
   kong:
     image: kong:3.13     # Explicit OSS tag
     networks:
