@@ -24,7 +24,7 @@ x-kong-config: &kong-env
 
 services:
   kong:
-    image: kong:3.13     # Explicit OSS tag
+    image: kong/kong-gateway:3.13     # Explicit OSS tag
     networks:
       kong-net:
       main-dev:
