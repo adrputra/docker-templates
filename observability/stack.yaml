@@ -32,11 +32,10 @@ services:
           - node.role == manager
 
   fluent-bit:
-    image: fluent/fluent-bit:2.2
+    image: grafana/fluent-bit-plugin-loki:2.9.4
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - ./fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf:ro
-    command: /fluent-bit/bin/fluent-bit -c /fluent-bit/etc/fluent-bit.conf
     networks:
       - main-dev
     deploy:
