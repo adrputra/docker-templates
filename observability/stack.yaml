@@ -9,6 +9,8 @@ services:
       - ./loki-config.yaml:/etc/loki/loki-config.yaml:ro
     ports:
       - "3100:3100"
+    networks:
+      - main-dev
     deploy:
       placement:
         constraints:
@@ -22,6 +24,8 @@ services:
       - loki
     volumes:
       - grafana-data:/var/lib/grafana
+    networks:
+      - main-dev
     deploy:
       placement:
         constraints:
@@ -33,9 +37,15 @@ services:
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - ./fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf:ro
     command: /fluent-bit/bin/fluent-bit -c /fluent-bit/etc/fluent-bit.conf
+    networks:
+      - main-dev
     deploy:
       mode: global
 
 volumes:
   loki-data:
   grafana-data:
+
+networks:
+  main-dev:
+    external: true

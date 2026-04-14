@@ -95,3 +95,12 @@ cadvisor.yangpenting.fun {
 monitor.yangpenting.fun {
   reverse_proxy beszel:8090
 }
+
+# Observability
+grafana.yangpenting.fun {
+  reverse_proxy grafana:3000
+}
+
+loki.yangpenting.fun {
+  reverse_proxy loki:3100
+}
